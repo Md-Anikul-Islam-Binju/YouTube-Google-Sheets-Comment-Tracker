@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\YoutubeSettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,8 @@ Route::get('/', function () {
 Route::middleware('auth')->group(callback: function () {
     //Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/youtube-settings', [YoutubeSettingController::class,'index'])->name('youtube-settings.index');
+    Route::post('/youtube-settings', [YoutubeSettingController::class,'store'])->name('youtube-settings.store');
+
 });
 require __DIR__.'/auth.php';

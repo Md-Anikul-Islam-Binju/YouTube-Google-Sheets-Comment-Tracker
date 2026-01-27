@@ -105,19 +105,12 @@
                 </li>
 
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarPages" aria-expanded="false" aria-controls="sidebarPages" class="side-nav-link">
-                        <i class="ri-pages-line"></i>
-                        <span> Youtube </span>
-                        <span class="menu-arrow"></span>
+                    <a href="{{route('youtube-settings.index')}}" class="side-nav-link">
+                        <i class="ri-youtube-line"></i>
+                        <span> Youtube Settings </span>
                     </a>
-                    <div class="collapse" id="sidebarPages">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="#">Google Sheet</a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
+
             </ul>
             <div class="clearfix"></div>
         </div>
