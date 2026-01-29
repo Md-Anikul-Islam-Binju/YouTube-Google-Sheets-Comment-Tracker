@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ProcessedComment extends Model
 {
     use HasFactory;
-
     protected $fillable = ['comment_id', 'video_id'];
 }
