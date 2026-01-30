@@ -16,27 +16,33 @@
     </div>
 
     <div class="row">
+        <!-- Total Videos -->
         <div class="col-xxl-6 col-sm-6">
             <div class="card widget-flat text-bg-pink">
                 <div class="card-body">
                     <div class="float-end">
-                        <i class="ri-app-store-line widget-icon"></i>
+                        <!-- Video / YouTube icon -->
+                        <i class="ri-youtube-line widget-icon" style="font-size: 2.5rem;"></i>
                     </div>
-                    <h6 class="text-uppercase mt-0" title="Customers">Total Videos</h6>
-                    <h2 class="my-2">100</h2>
+                    <h6 class="text-uppercase mt-0" title="Total Videos">Total Videos</h6>
+                    <h2 class="my-2">{{ $totalVideosLink }}</h2>
                 </div>
             </div>
         </div>
+
+        <!-- Total Sheets -->
         <div class="col-xxl-6 col-sm-6">
             <div class="card widget-flat text-bg-purple">
                 <div class="card-body">
                     <div class="float-end">
-                        <i class="ri-profile-line widget-icon"></i>
+                        <!-- Sheet / File icon -->
+                        <i class="ri-file-list-3-line widget-icon" style="font-size: 2.5rem;"></i>
                     </div>
-                    <h6 class="text-uppercase mt-0" title="Customers">Total User</h6>
-                    <h2 class="my-2">200</h2>
+                    <h6 class="text-uppercase mt-0" title="Total Sheets">Total Sheets</h6>
+                    <h2 class="my-2">{{ $totalSheetLink }}</h2>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection

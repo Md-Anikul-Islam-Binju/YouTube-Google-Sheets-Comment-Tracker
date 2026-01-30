@@ -67,9 +67,9 @@
                         <div class=" dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome !</h6>
                         </div>
-                        <a href="#" class="dropdown-item">
+                        <a href="{{ route('profile.password.edit') }}" class="dropdown-item">
                             <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
-                            <span>My Account</span>
+                            <span>My Account Setting</span>
                         </a>
                         <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="ri-logout-box-line fs-18 align-middle me-1"></i>

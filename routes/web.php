@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\YoutubeSettingController;
 use App\Services\GoogleSheetService;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth/login');
 });
+
+// Show update password form
+Route::get('/profile/password', [ProfileController::class, 'editPassword'])->name('profile.password.edit');
+
+// Handle password update
+Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 
 //Admin
 Route::middleware('auth')->group(callback: function () {
