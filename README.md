@@ -8,3 +8,12 @@ php artisan key:generate
 php artisan migrate
 # Admin Create
 php artisan db:seed
+
+# if test menually then run comand
+php artisan youtube:fetch
+
+# if test in your local pc useing windows then setup on OS after setup run comad
+
+php artisan schedule:run
+
+php artisan schedule:work

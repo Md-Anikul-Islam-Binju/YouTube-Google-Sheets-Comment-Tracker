@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Console\Commands;
-
 use Illuminate\Console\Command;
 use App\Services\YoutubeService;
 use App\Services\GoogleSheetService;
@@ -14,15 +12,15 @@ class FetchYoutubeLiveChat extends Command
     protected $description = 'Fetch YouTube live chat and push to Google Sheet';
 
     public function __construct(
-        protected YoutubeService $youtube,
+        protected YoutubeService     $youtube,
         protected GoogleSheetService $sheetService
-    ) {
+    )
+    {
         parent::__construct();
     }
 
     public function handle()
     {
-        // Active YouTube settings
         $settings = YoutubeSetting::where('is_active', 1)->get();
 
         foreach ($settings as $setting) {
@@ -44,17 +42,19 @@ class FetchYoutubeLiveChat extends Command
                 $setting->page_token
             );
 
-            foreach ($response->items as $item) {
-                $message = $item->snippet->displayMessage;
+            /** @var \Google\Service\YouTube\LiveChatMessage $item */
+            foreach ($response->items ?? [] as $item) {
 
-                // Loop through each keyword from DB
+                $message = $item->snippet->displayMessage ?? '';
+                $author = $item->authorDetails->displayName ?? 'Unknown';
+
                 foreach ($setting->keywords as $kw) {
                     $kw = trim($kw);                // remove spaces
                     $kw = preg_quote($kw, '/');     // escape regex special chars
 
-                    // Match keyword optionally followed by a number
-                    if (preg_match("/(^|\s)$kw(?:\s+(\d+))?/i", $message, $m)) {
-                        $number = $m[2] ?? null; // number or null
+                    // ✅ Keyword optionally followed by optional space and number
+                    if (preg_match("/^{$kw}\s*(\d+)?/i", $message, $m)) {
+                        $number = $m[1] ?? null;
 
                         // Skip if already processed
                         if (!ProcessedComment::where('comment_id', $item->id)->exists()) {
@@ -64,20 +64,20 @@ class FetchYoutubeLiveChat extends Command
                                 $setting->sheet_id,
                                 [
                                     now()->toDateTimeString(),
-                                    $item->authorDetails->displayName,
+                                    $author,
                                     $message,
                                     $kw,
                                     $number
                                 ]
                             );
 
-                            // Mark comment as processed in DB
+                            // Mark comment as processed
                             ProcessedComment::create([
                                 'comment_id' => $item->id,
                                 'video_id' => $setting->video_id
                             ]);
 
-                            $this->info("Processed: {$item->authorDetails->displayName} => $message");
+                            $this->info("Processed: {$author} => {$message}");
                         }
                     }
                 }
@@ -88,6 +88,6 @@ class FetchYoutubeLiveChat extends Command
             $setting->save();
         }
 
-        $this->info('Fetch completed at '.now());
+        $this->info('Fetch completed at ' . now());
     }
 }
