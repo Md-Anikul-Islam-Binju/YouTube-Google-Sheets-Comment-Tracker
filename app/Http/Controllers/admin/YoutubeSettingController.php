@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\YoutubeSetting;
 use Illuminate\Http\Request;
+use Yoeunes\Toastr\Facades\Toastr;
 
 class YoutubeSettingController extends Controller
 {
@@ -23,7 +24,36 @@ class YoutubeSettingController extends Controller
             'sheet_id' => $request->sheet_id,
             'is_active' => 1
         ]);
+        Toastr::success('Saved Successfully', 'Success');
+        return redirect()->back();
 
-        return back()->with('success','Saved successfully');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'video_id' => 'required',
+            'sheet_id' => 'required',
+        ]);
+
+        $item = YoutubeSetting::findOrFail($id);
+
+        $item->update([
+            'video_id' => $request->video_id,
+            'keywords' => explode(',', $request->keywords),
+            'sheet_id' => $request->sheet_id,
+            'is_active' => 1,
+        ]);
+
+        Toastr::success('Updated Successfully', 'Success');
+        return redirect()->back();
+    }
+
+    public function destroy($id)
+    {
+        YoutubeSetting::findOrFail($id)->delete();
+        Toastr::success('Deleted Successfully', 'Success');
+        return redirect()->back();
+
     }
 }

@@ -26,6 +26,9 @@ Route::middleware('auth')->group(callback: function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/youtube-settings', [YoutubeSettingController::class,'index'])->name('youtube-settings.index');
     Route::post('/youtube-settings', [YoutubeSettingController::class,'store'])->name('youtube-settings.store');
+    Route::put('/youtube-settings-update/{id}', [YoutubeSettingController::class, 'update'])->name('youtube-settings.update');
+    Route::get('/youtube-settings-delete/{id}', [YoutubeSettingController::class, 'destroy'])->name('youtube-settings.destroy');
+
 
     Route::get('/test-sheet', function(GoogleSheetService $sheet){
         // আপনার Google Sheet ID
